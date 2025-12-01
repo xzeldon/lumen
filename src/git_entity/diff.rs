@@ -44,8 +44,8 @@ impl Diff {
     }
 
     pub fn from_commits_range(from: &str, to: &str, triple_dot: bool) -> Result<Self, LumenError> {
-        let _ = Commit::is_valid_commit(from)?;
-        let _ = Commit::is_valid_commit(to)?;
+        Commit::is_valid_commit(from)?;
+        Commit::is_valid_commit(to)?;
 
         let separator = if triple_dot { "..." } else { ".." };
         let range = format!("{}{}{}", from, separator, to);

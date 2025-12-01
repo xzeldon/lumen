@@ -59,7 +59,7 @@ async fn run() -> Result<(), LumenError> {
                 GitEntity::Commit(Commit::new(sha)?)
             } else if let Some(CommitReference::Range { from, to }) = reference {
                 GitEntity::Diff(Diff::from_commits_range(&from, &to, false)?)
-            }  else if let Some(CommitReference::TripleDots { from, to }) = reference {
+            } else if let Some(CommitReference::TripleDots { from, to }) = reference {
                 GitEntity::Diff(Diff::from_commits_range(&from, &to, true)?)
             } else {
                 return Err(LumenError::InvalidArguments(

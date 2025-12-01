@@ -14,8 +14,7 @@ impl OllamaConfig {
     pub fn new(model: String, api_base_url: Option<String>) -> Self {
         Self {
             model,
-            api_base_url: api_base_url
-                .unwrap_or_else(|| "http://localhost:11434".to_string()),
+            api_base_url: api_base_url.unwrap_or_else(|| "http://localhost:11434".to_string()),
         }
     }
 }
@@ -38,12 +37,7 @@ impl OllamaProvider {
         });
 
         let url = format!("{}/api/generate", self.config.api_base_url);
-        let response = self
-            .client
-            .post(&url)
-            .json(&payload)
-            .send()
-            .await?;
+        let response = self.client.post(&url).json(&payload).send().await?;
 
         let status = response.status();
 

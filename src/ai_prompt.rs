@@ -65,7 +65,7 @@ impl AIPrompt {
             None => match &command.git_entity {
                 GitEntity::Commit(_) => formatdoc! {"
                     {base_content}
-                    
+
                     Provide a short explanation covering:
                     1. Core changes made
                     2. Direct impact
@@ -73,7 +73,7 @@ impl AIPrompt {
                 },
                 GitEntity::Diff(Diff::WorkingTree { .. }) => formatdoc! {"
                     {base_content}
-                    
+
                     Provide:
                     1. Key changes
                     2. Notable concerns (if any)
@@ -81,7 +81,7 @@ impl AIPrompt {
                 },
                 GitEntity::Diff(Diff::CommitsRange { .. }) => formatdoc! {"
                     {base_content}
-                    
+
                     Provide:
                     1. Core changes made
                     2. Direct impact
@@ -122,7 +122,7 @@ impl AIPrompt {
             "".to_string()
         };
 
-        let user_prompt = String::from(formatdoc! {"
+        let user_prompt = formatdoc! {"
             Generate a concise git commit message written in present tense for the following code diff with the given specifications below:
 
             The output response must be in format:
@@ -140,7 +140,7 @@ impl AIPrompt {
             ```
             ",
             commit_types = command.draft_config.commit_types,
-        });
+        };
 
         Ok(AIPrompt {
             system_prompt,
@@ -156,7 +156,7 @@ impl AIPrompt {
     "});
         let user_prompt = formatdoc! {"
         Generate Git command for: {query}
-        
+
         <command>Git command</command>
         <explanation>Brief explanation</explanation>
         <warning>Required for destructive commands only - omit for safe commands</warning>
