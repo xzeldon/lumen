@@ -197,9 +197,9 @@ Lumen will load configurations in the following order of priority:
 
 ```json
 {
-  "provider": "openai",
-  "model": "gpt-4o",
-  "api_key": "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "provider": "ollama",
+  "model": "qwen2.5-coder:7b",
+  "ollama_api_base_url": "http://localhost:11434",
   "draft": {
     "commit_types": {
       "docs": "Documentation only changes",
