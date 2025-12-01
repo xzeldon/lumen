@@ -32,8 +32,13 @@ async fn run() -> Result<(), LumenError> {
         Err(e) => return Err(e),
     };
 
-    let provider =
-        provider::LumenProvider::new(client, config.provider, config.api_key, config.model)?;
+    let provider = provider::LumenProvider::new(
+        client,
+        config.provider,
+        config.api_key,
+        config.model,
+        config.ollama_api_base_url,
+    )?;
     let command = command::LumenCommand::new(provider);
 
     match cli.command {

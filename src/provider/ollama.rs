@@ -11,10 +11,11 @@ pub struct OllamaConfig {
 }
 
 impl OllamaConfig {
-    pub fn new(model: String) -> Self {
+    pub fn new(model: String, api_base_url: Option<String>) -> Self {
         Self {
             model,
-            api_base_url: "http://localhost:11434/api/generate".to_string(),
+            api_base_url: api_base_url
+                .unwrap_or_else(|| "http://localhost:11434".to_string()),
         }
     }
 }
@@ -36,9 +37,10 @@ impl OllamaProvider {
             "stream": false
         });
 
+        let url = format!("{}/api/generate", self.config.api_base_url);
         let response = self
             .client
-            .post(&self.config.api_base_url)
+            .post(&url)
             .json(&payload)
             .send()
             .await?;

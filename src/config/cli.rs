@@ -21,6 +21,9 @@ pub struct Cli {
     #[arg(short = 'm', long = "model")]
     pub model: Option<String>,
 
+    #[arg(long = "ollama-base-url")]
+    pub ollama_api_base_url: Option<String>,
+
     #[command(subcommand)]
     pub command: Commands,
 }

@@ -63,6 +63,7 @@ impl LumenProvider {
         provider_type: ProviderType,
         api_key: Option<String>,
         model: Option<String>,
+        ollama_api_base_url: Option<String>,
     ) -> Result<Self, LumenError> {
         match provider_type {
             ProviderType::Openai => {
@@ -89,7 +90,7 @@ impl LumenProvider {
             }
             ProviderType::Ollama => {
                 let model = model.ok_or(LumenError::MissingModel("Ollama".to_string()))?;
-                let config = OllamaConfig::new(model);
+                let config = OllamaConfig::new(model, ollama_api_base_url);
                 let provider = LumenProvider::Ollama(Box::new(OllamaProvider::new(client, config)));
                 Ok(provider)
             }
